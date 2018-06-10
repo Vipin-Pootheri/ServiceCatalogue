@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>NAB DataService</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<script>
+$(document).ready(function(){
+	$('#message1').html("");
+	$('#message2').html("");
+	$('#signin').click(function(){
+		$('#message1').html("");
+		$('#message2').html("");
+	})
+	$('#admin').click(function(){
+		$('#message1').html("");
+		$('#message2').html("");
+	})
+	
+$('#form1').hide();
+$('#form2').hide();
+$('#signin').click(function (){
+	$('#form1').show();
+	$('#form2').hide();
+})
+$('#admin').click(function (){
+	$('#form2').show();
+	$('#form1').hide();
+})
+$('#submit2').click(function(){
+	if($('#adminname').val()=="admin" && $('#adminpassword').val()=="admin"){
+	$('#message2').html("Authenticated");
+	window.location.href="./admin.jsp";
+	return false;
+	}
+	else{
+	$('#message2').html("Admin name and password is incorrect");
+		return false;
+	}		
+	})
+$('#adminname').focus(function(){
+	$('#message2').html("");
+})
+$('#adminpassword').focus(function(){
+	$('#message2').html("");
+})
+//admin function ends here and user starts here
+$('#username').focus(function(){
+	$('#message1').html("");
+})
+$('#password').focus(function(){
+	$('#message1').html("");
+})
+
+$('#submit1').click(function(){
+	
+	var username=$('#username').val();
+	var password=$('#password').val();
+	if ($('#username').val()==""){
+		$('#message1').html("Username cannot be empty");
+		return false;
+	}
+	if ($('#password').val()==""){
+		$('#message1').html("Password cannot be empty");
+		return false
+	}
+		
+	
+})
+})
+
+
+</script>
+<body>
+<a href=# id="signin">Sign in</a>
+<a href=# id="admin">admin</a>
+<form action=./loginRequest id=form1>
+UserName <input type=text id=username name=username><br>
+Password <input type=password id=password name=password><br>
+<input type=submit value =Submit id=submit1><br><br>
+<div id=message1>
+</div>
+</form>
+<form id=form2>
+AdminName <input type=text id=adminname><br>
+Password <input type=password id=adminpassword><br>
+<input type=submit id=submit2 value=submit>
+</form>
+<div id=message2></div>
+</body>
+</html>
