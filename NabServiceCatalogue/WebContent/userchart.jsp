@@ -1,3 +1,4 @@
+<%@page import="com.sun.corba.se.spi.orbutil.fsm.Guard.Result"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ page import="java.util.*,java.sql.*,java.text.*" %>
 <%@ page import="com.google.gson.Gson"%>
@@ -29,8 +30,6 @@ Statement stmt = null;
 Connection con=null;
 DateFormat df = new SimpleDateFormat("dd/MM/yyyy");  
 String uname=request.getParameter("username");
-out.print(uname);
-
 //username=request.getParameter("username");
 
 String xVal;
@@ -210,8 +209,16 @@ $("#backButton").click(function() {
 <form action="" method=get>
 Select User <select name=username id=username>
 <option value="">Select User</option>
-<option value=Vipin>Vipin</option>
-<option value=Sijitha>Sijitha</option>
+<%
+PreparedStatement psuser=con.prepareStatement("Select userid from users order by userid asc");
+ResultSet rs =psuser.executeQuery();
+while (rs.next()){
+%>
+<option value=<%=rs.getString(1)%>><%=rs.getString(1) %></option>
+<%		
+}
+con.close();
+%>
 </select>
 </form>
 <div id="chartContainer" style="height: 300px; width: 100%;"></div>
